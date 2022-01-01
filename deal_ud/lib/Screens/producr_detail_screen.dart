@@ -7,7 +7,7 @@ class ProductDetailpage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(tt),
+        title: Text(ttgt),
       ),
     );
   }
