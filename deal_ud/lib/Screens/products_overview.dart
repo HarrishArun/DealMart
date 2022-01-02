@@ -9,7 +9,9 @@ class ProductsOverviewScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('DealMart'),
         ),
-        body: productgrids(),
-        
+        // ignore: prefer_const_constructors
+        body: productgrids(
+          loadedProduct: [],
+        ));
   }
 }

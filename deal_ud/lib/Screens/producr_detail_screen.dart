@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/products_provider.dart';
 
-class ProductDetailpage extends StatelessWidget {
-  ProductDetailpage(this.title);
-
+class ProductDetailscreen extends StatelessWidget {
+  static const routName = '/product_detail';
   @override
   Widget build(BuildContext context) {
+    final productId = ModalRoute.of(context)?.settings.arguments as String;
+    final loadedProduct =
+        Provider.of<Products>(context, listen: false).findById(productId);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(ttgt),
+        title: Text(loadedProduct.title), //same way used to retrive data
       ),
     );
   }

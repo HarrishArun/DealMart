@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:deal_ud/Screens/producr_detail_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/products.dart';
 
 class ProductItem extends StatelessWidget {
   final String id;
@@ -17,25 +19,29 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(12),
       child: GridTile(
         child: GestureDetector(
           onTap: () {
-            Navigator.of(context).pushNamed('');
+            Navigator.of(context)
+                .pushNamed(ProductDetailscreen.routName, arguments: product.id);
           },
           child: Image.network(
-            imageUrl,
+            product.imageUrl,
             fit: BoxFit.cover,
           ),
         ),
         header: Container(
           child: IconButton(
             icon: Icon(
-              Icons.favorite,
+              product.isFavorite ? Icons.favorite : Icons.favorite_border,
               color: Colors.redAccent,
             ),
-            onPressed: () {},
+            onPressed: () {
+              product.toggleFavouriteStatus();
+            },
           ),
           alignment: Alignment.topRight,
         ),
@@ -43,7 +49,7 @@ class ProductItem extends StatelessWidget {
           color: Colors.white38,
           child: ListTile(
             leading: Text(
-              title,
+              product.title,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             title: Text(
