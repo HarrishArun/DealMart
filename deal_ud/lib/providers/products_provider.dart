@@ -1,3 +1,4 @@
+import 'package:deal_ud/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'products.dart';
 
@@ -18,8 +19,16 @@ class Products with ChangeNotifier {
         imageUrl:
             'https://live.staticflickr.com/4043/4438260868_cc79b3369d_z.jpg')
   ];
+  var _showFavoritesOnly = false;
   List<Product> get items {
+    // if (_showFavoritesOnly) {
+    //   return _items.where((prodItem) => prodItem.isFavorite).toList();
+    //  }
     return [..._items];
+  }
+
+  List<Product> get favoriteItems {
+    return _items.where((prodItem) => prodItem.isFavorite).toList();
   }
 
   Product findById(String id) {
@@ -30,4 +39,14 @@ class Products with ChangeNotifier {
     // _items.add(value);
     notifyListeners();
   }
+
+////  void showFavouritesOnly() {
+  //  _showFavoritesOnly = true;
+  ////   notifyListeners();
+//  }
+
+  // void showAll() {
+  //  _showFavoritesOnly = false;
+  //   notifyListeners();
+//  }
 }
