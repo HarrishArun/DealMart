@@ -7,6 +7,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import '../Screens/favscreen.dart';
 import 'allprod.dart';
 import '../Screens/userproduct_screen.dart';
+import '../widgets/cateogries_horizontal_view.dart';
 
 enum FilterOptions { Favorites, All }
 
@@ -28,12 +29,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         appBar: AppBar(
           title: const Text('DealMart'),
           actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushReplacementNamed(UserProductsScreen.routName);
-                },
-                icon: Icon(Icons.details)),
             new IconButton(
                 onPressed: () {
                   setState(() {
@@ -45,33 +40,33 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                   Icons.favorite,
                   color: Colors.white,
                 )),
-            PopupMenuButton(
-              onSelected: (FilterOptions selectedValue) {
-                setState(() {
-                  if (selectedValue == FilterOptions.Favorites) {
-                    _showOnlyFavorites = true;
-                    // productsContainer.showFavouritesOnly();
-                  } else {
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    FilterOptions.Favorites;
                     _showOnlyFavorites = false;
-                    //productsContainer.showAll();
-                  }
-                });
-              }, //adding Favvv................
-              icon: Icon(
-                Icons.more_vert,
-              ),
-              itemBuilder: (_) => [
-                PopupMenuItem(
-                    child: Text('only fav'), value: FilterOptions.Favorites),
-                PopupMenuItem(
-                  child: Text('ShowAll'),
-                  value: FilterOptions.All,
-                )
-              ],
-            )
+                  });
+                },
+                icon: const Icon(
+                  Icons.home,
+                  color: Colors.white,
+                )),
           ],
         ),
-        body: productgrids(_showOnlyFavorites),
+        body: Column(children: [
+          new Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Top Cateogries'),
+          ),
+          HorizontalList(),
+          new Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              'Recent Deals',
+            ),
+          ),
+          Flexible(child: productgrids(_showOnlyFavorites))
+        ]),
 
         bottomNavigationBar: CurvedNavigationBar(
           //color: Colors.black,
@@ -94,12 +89,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
               size: 30,
             ),
           ],
-          //onTap: (index) {
-          // setState(() {
-          //   FilterOptions.Favorites;
-          //   _showOnlyFavorites = true;
-          // });
-          // },
+
           height: 60,
         ),
         //navbar
